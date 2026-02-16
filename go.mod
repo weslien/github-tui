@@ -1,11 +1,12 @@
 module github.com/skanehira/ght
 
-go 1.22
+go 1.24.0
 
 require (
 	github.com/atotto/clipboard v0.1.2
 	github.com/gdamore/tcell/v2 v2.2.0
 	github.com/goccy/go-yaml v1.8.3
+	github.com/google/go-github/v68 v68.0.0
 	github.com/rivo/tview v0.0.0-20210312174852-ae9464cc3598
 	github.com/shurcooL/githubv4 v0.0.0-20200928013246-d292edc3691b
 	golang.org/x/oauth2 v0.0.0-20200902213428-5d25da1a8d43
@@ -16,6 +17,7 @@ require (
 	github.com/fatih/color v1.7.0 // indirect
 	github.com/gdamore/encoding v1.0.0 // indirect
 	github.com/golang/protobuf v1.4.2 // indirect
+	github.com/google/go-querystring v1.1.0 // indirect
 	github.com/lucasb-eyer/go-colorful v1.2.0 // indirect
 	github.com/mattn/go-colorable v0.1.6 // indirect
 	github.com/mattn/go-isatty v0.0.12 // indirect
