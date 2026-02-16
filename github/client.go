@@ -20,6 +20,9 @@ func NewClient(token string) {
 	)
 	httpClient := oauth2.NewClient(context.Background(), src)
 
+	rateLimiter = NewRateLimiter()
+	httpClient.Transport = rateLimiter.WrapTransport(httpClient.Transport)
+
 	graphQLClient = githubv4.NewClient(httpClient)
 	restClient = gogithub.NewClient(httpClient)
 }
@@ -32,6 +35,12 @@ func GetRESTClient() *gogithub.Client {
 // GetGraphQLClient returns the initialized GraphQL API client.
 func GetGraphQLClient() *githubv4.Client {
 	return graphQLClient
+}
+
+// GetRateLimiter returns the rate limiter wired into the shared HTTP transport.
+// Returns nil if NewClient has not been called yet.
+func GetRateLimiter() *RateLimiter {
+	return rateLimiter
 }
 
 func CreateIssue(input githubv4.CreateIssueInput) error {

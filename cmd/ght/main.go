@@ -1,11 +1,13 @@
 package main
 
 import (
+	"context"
 	"flag"
 	"fmt"
 	"log"
 	"os/exec"
 	"strings"
+	"time"
 
 	"github.com/skanehira/ght/config"
 	"github.com/skanehira/ght/github"
@@ -21,6 +23,21 @@ func main() {
 	config.Init()
 	getRepoInfo()
 	github.NewClient(config.GitHub.Token)
+
+	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+	scopes, err := github.ValidateTokenScopes(ctx, config.GitHub.Token)
+	cancel()
+
+	if err != nil {
+		log.Fatalf("Token validation failed: %v", err)
+	}
+	if err := scopes.Validate(); err != nil {
+		log.Fatalf("Token scope check failed: %v", err)
+	}
+	if scopes.IsFineGrained {
+		log.Println("Note: Fine-grained PAT detected — scope validation skipped. If you encounter permission errors, verify your token has repo, actions, and project read permissions.")
+	}
+
 	if err := ui.New().Start(); err != nil {
 		log.Fatal(err)
 	}
