@@ -77,26 +77,26 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| FOUND-01 | Phase ? | Pending |
-| FOUND-02 | Phase ? | Pending |
-| FOUND-03 | Phase ? | Pending |
-| ACT-01 | Phase ? | Pending |
-| ACT-02 | Phase ? | Pending |
-| ACT-03 | Phase ? | Pending |
-| ACT-04 | Phase ? | Pending |
-| ACT-05 | Phase ? | Pending |
-| ACT-06 | Phase ? | Pending |
-| ACT-07 | Phase ? | Pending |
-| PROJ-01 | Phase ? | Pending |
-| PROJ-02 | Phase ? | Pending |
-| PROJ-03 | Phase ? | Pending |
-| PROJ-04 | Phase ? | Pending |
+| FOUND-01 | Phase 1 | Pending |
+| FOUND-02 | Phase 1 | Pending |
+| FOUND-03 | Phase 1 | Pending |
+| ACT-01 | Phase 2 | Pending |
+| ACT-02 | Phase 2 | Pending |
+| ACT-03 | Phase 2 | Pending |
+| ACT-04 | Phase 2 | Pending |
+| ACT-05 | Phase 2 | Pending |
+| ACT-06 | Phase 2 | Pending |
+| ACT-07 | Phase 2 | Pending |
+| PROJ-01 | Phase 3 | Pending |
+| PROJ-02 | Phase 3 | Pending |
+| PROJ-03 | Phase 3 | Pending |
+| PROJ-04 | Phase 3 | Pending |
 
 **Coverage:**
 - v1 requirements: 14 total
-- Mapped to phases: 0
-- Unmapped: 14
+- Mapped to phases: 14
+- Unmapped: 0
 
 ---
 *Requirements defined: 2026-02-16*
-*Last updated: 2026-02-16 after initial definition*
+*Last updated: 2026-02-16 after roadmap creation*
