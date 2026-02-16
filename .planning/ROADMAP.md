@@ -27,10 +27,11 @@ Decimal phases appear between their surrounding integers in numeric order.
   2. App tracks REST (5000 req/hr) and GraphQL (5000 pts/hr) rate limits independently and displays current usage
   3. App validates PAT token scopes on startup and fails fast with clear message if required scopes missing
   4. UI updates from async API calls happen without deadlocks using established channel-based pattern
-**Plans**: TBD
+**Plans**: 2 plans
 
 Plans:
-(Plans will be added during plan-phase execution)
+- [ ] 01-01-PLAN.md -- REST client + rate limiter middleware (Wave 1)
+- [ ] 01-02-PLAN.md -- Token scope validation + wiring (Wave 2)
 
 ### Phase 2: GitHub Actions Integration
 **Goal**: Users can monitor GitHub Actions workflow runs, view job logs, and navigate to GitHub
@@ -68,10 +69,10 @@ Phases execute in numeric order: 1 → 2 → 3
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Foundation & Dual-Client Setup | 0/TBD | Not started | - |
+| 1. Foundation & Dual-Client Setup | 0/2 | Planning complete | - |
 | 2. GitHub Actions Integration | 0/TBD | Not started | - |
 | 3. Projects V2 Integration | 0/TBD | Not started | - |
 
 ---
 *Roadmap created: 2026-02-16*
-*Last updated: 2026-02-16*
+*Last updated: 2026-02-16 (Phase 1 planned)*
