@@ -2,7 +2,6 @@ package utils
 
 import (
 	"io"
-	"io/ioutil"
 	"log"
 	"os"
 	"os/exec"
@@ -10,7 +9,7 @@ import (
 )
 
 func Edit(contents *string) error {
-	f, err := ioutil.TempFile("", "*.md")
+	f, err := os.CreateTemp("", "*.md")
 	if err != nil {
 		return err
 	}
@@ -35,7 +34,7 @@ func Edit(contents *string) error {
 		return err
 	}
 
-	b, err := ioutil.ReadFile(f.Name())
+	b, err := os.ReadFile(f.Name())
 	if err != nil {
 		return err
 	}

@@ -1,0 +1,25 @@
+{
+  "active": true,
+  "spec": "001-upgrade-to-modern-go-version",
+  "state": "building",
+  "subtasks": {
+    "completed": 5,
+    "total": 7,
+    "in_progress": 1,
+    "failed": 0
+  },
+  "phase": {
+    "current": "Build and Test",
+    "id": null,
+    "total": 3
+  },
+  "workers": {
+    "active": 0,
+    "max": 1
+  },
+  "session": {
+    "number": 8,
+    "started_at": "2026-02-16T15:09:37.208310"
+  },
+  "last_update": "2026-02-16T15:23:24.693628"
+}

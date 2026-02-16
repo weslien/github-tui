@@ -1,0 +1,39 @@
+{
+  "sandbox": {
+    "enabled": true,
+    "autoAllowBashIfSandboxed": true
+  },
+  "permissions": {
+    "defaultMode": "acceptEdits",
+    "allow": [
+      "Read(./**)",
+      "Write(./**)",
+      "Edit(./**)",
+      "Glob(./**)",
+      "Grep(./**)",
+      "Read(/Users/gustav/src/github-tui/.auto-claude/worktrees/tasks/001-upgrade-to-modern-go-version/**)",
+      "Write(/Users/gustav/src/github-tui/.auto-claude/worktrees/tasks/001-upgrade-to-modern-go-version/**)",
+      "Edit(/Users/gustav/src/github-tui/.auto-claude/worktrees/tasks/001-upgrade-to-modern-go-version/**)",
+      "Glob(/Users/gustav/src/github-tui/.auto-claude/worktrees/tasks/001-upgrade-to-modern-go-version/**)",
+      "Grep(/Users/gustav/src/github-tui/.auto-claude/worktrees/tasks/001-upgrade-to-modern-go-version/**)",
+      "Read(/Users/gustav/src/github-tui/.auto-claude/worktrees/tasks/001-upgrade-to-modern-go-version/.auto-claude/specs/001-upgrade-to-modern-go-version/**)",
+      "Write(/Users/gustav/src/github-tui/.auto-claude/worktrees/tasks/001-upgrade-to-modern-go-version/.auto-claude/specs/001-upgrade-to-modern-go-version/**)",
+      "Edit(/Users/gustav/src/github-tui/.auto-claude/worktrees/tasks/001-upgrade-to-modern-go-version/.auto-claude/specs/001-upgrade-to-modern-go-version/**)",
+      "Read(/Users/gustav/src/github-tui/.auto-claude/**)",
+      "Write(/Users/gustav/src/github-tui/.auto-claude/**)",
+      "Edit(/Users/gustav/src/github-tui/.auto-claude/**)",
+      "Glob(/Users/gustav/src/github-tui/.auto-claude/**)",
+      "Grep(/Users/gustav/src/github-tui/.auto-claude/**)",
+      "Bash(*)",
+      "WebFetch(*)",
+      "WebSearch(*)",
+      "mcp__context7__resolve-library-id(*)",
+      "mcp__context7__get-library-docs(*)",
+      "mcp__graphiti-memory__search_nodes(*)",
+      "mcp__graphiti-memory__search_facts(*)",
+      "mcp__graphiti-memory__add_episode(*)",
+      "mcp__graphiti-memory__get_episodes(*)",
+      "mcp__graphiti-memory__get_entity_edge(*)"
+    ]
+  }
+}

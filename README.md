@@ -57,6 +57,10 @@ If you are using Vim, you can use [gh.vim](https://github.com/skanehira/gh.vim) 
   - set default editor
   - set user keybindings
 
+## Requirements
+
+- Go 1.22 or higher
+
 ## Installation
 
 ```sh
