@@ -12,7 +12,7 @@ This milestone adds GitHub Actions monitoring and Projects V2 support to the exi
 
 Decimal phases appear between their surrounding integers in numeric order.
 
-- [ ] **Phase 1: Foundation & Dual-Client Setup** - REST client, unified rate limiter, token validation, async patterns
+- [x] **Phase 1: Foundation & Dual-Client Setup** - REST client, unified rate limiter, token validation, async patterns (completed 2026-02-16)
 - [ ] **Phase 2: GitHub Actions Integration** - Workflow runs, jobs, logs, filtering, navigation
 - [ ] **Phase 3: Projects V2 Integration** - Project listing, items view, custom fields, navigation
 
@@ -69,7 +69,7 @@ Phases execute in numeric order: 1 → 2 → 3
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Foundation & Dual-Client Setup | 0/2 | Planning complete | - |
+| 1. Foundation & Dual-Client Setup | 0/2 | Complete    | 2026-02-16 |
 | 2. GitHub Actions Integration | 0/TBD | Not started | - |
 | 3. Projects V2 Integration | 0/TBD | Not started | - |
 
