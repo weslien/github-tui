@@ -10,28 +10,28 @@ See: .planning/PROJECT.md (updated 2026-02-16)
 ## Current Position
 
 Phase: 1 of 3 (Foundation & Dual-Client Setup)
-Plan: 1 of 2 complete
-Status: Executing
-Last activity: 2026-02-16 — Completed 01-01-PLAN.md (dual client + rate limiter)
+Plan: 2 of 2 complete
+Status: Phase Complete
+Last activity: 2026-02-16 — Completed 01-02-PLAN.md (token validation + rate limiter wiring)
 
-Progress: [█████░░░░░] 50%
+Progress: [██████████] 100%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 1
-- Average duration: 5min
-- Total execution time: 0.1 hours
+- Total plans completed: 2
+- Average duration: 4min
+- Total execution time: 0.13 hours
 
 **By Phase:**
 
 | Phase | Plans | Total | Avg/Plan |
 |-------|-------|-------|----------|
-| 01-foundation | 1 | 5min | 5min |
+| 01-foundation | 2 | 8min | 4min |
 
 **Recent Trend:**
-- Last 5 plans: 01-01 (5min)
-- Trend: N/A (need more data)
+- Last 5 plans: 01-01 (5min), 01-02 (3min)
+- Trend: Improving
 
 *Updated after each plan completion*
 
@@ -48,6 +48,9 @@ Recent decisions affecting current work:
 - 01-01: Used channel-based semaphore for concurrent request limiting (simpler than semaphore libraries)
 - 01-01: Deferred GraphQL response body parsing to query-level code in later phases
 - 01-01: Used gogithub import alias to avoid package name collision
+- 01-02: ValidateTokenScopes uses direct HTTP (not rate-limited client) for header access
+- 01-02: Fine-grained PATs degrade gracefully (warn, don't block) since X-OAuth-Scopes is empty
+- 01-02: admin:org scope implies project access (same as read:org)
 
 ### Pending Todos
 
@@ -67,7 +70,7 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-02-16 (plan execution)
-Stopped at: Completed 01-01-PLAN.md, ready for 01-02-PLAN.md
+Stopped at: Completed 01-02-PLAN.md — Phase 1 complete, ready for Phase 2
 Resume file: None
 
 ---
