@@ -43,10 +43,12 @@ Plans:
   3. User can select a workflow run, view its jobs, and view logs for specific jobs with ANSI codes properly stripped
   4. User can open a workflow run in browser from the TUI
   5. Actions tab is accessible via keybinding from any view in the TUI
-**Plans**: TBD
+**Plans**: 3 plans
 
 Plans:
-(Plans will be added during plan-phase execution)
+- [ ] 02-01-PLAN.md -- Domain types (WorkflowRun, WorkflowJob) + API layer + log cleaning (Wave 1, TDD)
+- [ ] 02-02-PLAN.md -- Actions tab UI with workflow runs list, tab switching, filtering (Wave 2)
+- [ ] 02-03-PLAN.md -- Jobs drill-down + log viewing with ANSI stripping (Wave 3)
 
 ### Phase 3: Projects V2 Integration
 **Goal**: Users can browse GitHub Projects V2 projects and items with custom field display
@@ -70,7 +72,7 @@ Phases execute in numeric order: 1 → 2 → 3
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Foundation & Dual-Client Setup | 0/2 | Complete    | 2026-02-16 |
-| 2. GitHub Actions Integration | 0/TBD | Not started | - |
+| 2. GitHub Actions Integration | 0/3 | Not started | - |
 | 3. Projects V2 Integration | 0/TBD | Not started | - |
 
 ---
