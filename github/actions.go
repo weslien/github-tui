@@ -169,37 +169,39 @@ func ListWorkflowJobs(ctx context.Context, owner, repo string, runID int64, opts
 
 // GetWorkflowJobLog fetches the log content for a specific workflow job.
 // It follows the redirect URL returned by the API and downloads the log content,
-// capped at maxLogSize (10MB) to prevent OOM.
-func GetWorkflowJobLog(ctx context.Context, owner, repo string, jobID int64) (string, error) {
+// capped at maxLogSize (10MB) to prevent OOM. Returns the cleaned log content
+// and whether the log was truncated due to the size limit.
+func GetWorkflowJobLog(ctx context.Context, owner, repo string, jobID int64) (string, bool, error) {
 	client := GetRESTClient()
 	if client == nil {
-		return "", fmt.Errorf("REST client not initialized")
+		return "", false, fmt.Errorf("REST client not initialized")
 	}
 
 	logURL, _, err := client.Actions.GetWorkflowJobLogs(ctx, owner, repo, jobID, 4)
 	if err != nil {
-		return "", fmt.Errorf("failed to get log URL for job %d: %w", jobID, err)
+		return "", false, fmt.Errorf("failed to get log URL for job %d: %w", jobID, err)
 	}
 
 	req, err := http.NewRequestWithContext(ctx, http.MethodGet, logURL.String(), nil)
 	if err != nil {
-		return "", fmt.Errorf("failed to create log request: %w", err)
+		return "", false, fmt.Errorf("failed to create log request: %w", err)
 	}
 
 	resp, err := http.DefaultClient.Do(req)
 	if err != nil {
-		return "", fmt.Errorf("failed to download log: %w", err)
+		return "", false, fmt.Errorf("failed to download log: %w", err)
 	}
 	defer resp.Body.Close()
 
 	if resp.StatusCode != http.StatusOK {
-		return "", fmt.Errorf("log download returned status %d", resp.StatusCode)
+		return "", false, fmt.Errorf("log download returned status %d", resp.StatusCode)
 	}
 
 	body, err := io.ReadAll(io.LimitReader(resp.Body, maxLogSize))
 	if err != nil {
-		return "", fmt.Errorf("failed to read log body: %w", err)
+		return "", false, fmt.Errorf("failed to read log body: %w", err)
 	}
 
-	return CleanLog(string(body)), nil
+	truncated := int64(len(body)) >= maxLogSize
+	return CleanLog(string(body)), truncated, nil
 }

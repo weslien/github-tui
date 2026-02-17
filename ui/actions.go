@@ -252,7 +252,7 @@ func fetchAndDisplayJobLog(job *domain.WorkflowJob) {
 		owner := config.GitHub.Owner
 		repo := config.GitHub.Repo
 
-		logContent, err := github.GetWorkflowJobLog(ctx, owner, repo, job.ID)
+		logContent, truncated, err := github.GetWorkflowJobLog(ctx, owner, repo, job.ID)
 		if err != nil {
 			ctxErr := ctx.Err()
 			// If context was cancelled by user navigation (not timeout), silently return
@@ -275,8 +275,8 @@ func fetchAndDisplayJobLog(job *domain.WorkflowJob) {
 			return
 		}
 
-		// Check if log was truncated (10MB limit)
-		if int64(len(logContent)) >= 10*1024*1024-1024 {
+		// Append truncation message if log was capped at 10MB
+		if truncated {
 			logContent += "\n\n--- Log truncated at 10MB. Press Ctrl+O on the job to view full log in browser. ---"
 		}
 
