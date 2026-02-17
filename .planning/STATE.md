@@ -10,29 +10,29 @@ See: .planning/PROJECT.md (updated 2026-02-16)
 ## Current Position
 
 Phase: 2 of 3 (GitHub Actions Integration)
-Plan: 1 of 3 complete
+Plan: 2 of 3 complete
 Status: In Progress
-Last activity: 2026-02-17 — Completed 02-01-PLAN.md (Actions domain types + API layer)
+Last activity: 2026-02-17 — Completed 02-02-PLAN.md (Actions tab UI with filtering)
 
-Progress: [███░░░░░░░] 33%
+Progress: [█████░░░░░] 50%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 3
+- Total plans completed: 4
 - Average duration: 4min
-- Total execution time: 0.18 hours
+- Total execution time: 0.25 hours
 
 **By Phase:**
 
 | Phase | Plans | Total | Avg/Plan |
 |-------|-------|-------|----------|
 | 01-foundation | 2 | 8min | 4min |
-| 02-actions | 1 | 3min | 3min |
+| 02-actions | 2 | 7min | 3.5min |
 
 **Recent Trend:**
-- Last 5 plans: 01-01 (5min), 01-02 (3min), 02-01 (3min)
-- Trend: Improving
+- Last 5 plans: 01-01 (5min), 01-02 (3min), 02-01 (3min), 02-02 (4min)
+- Trend: Stable
 
 *Updated after each plan completion*
 
@@ -56,6 +56,10 @@ Recent decisions affecting current work:
 - 02-01: CleanLog applied automatically inside GetWorkflowJobLog (callers get clean text)
 - 02-01: ListWorkflows uses full pagination; other list functions delegate pagination to caller
 - 02-01: WorkflowJob duration uses StartedAt/CompletedAt (job-level, not run-level timestamps)
+- 02-02: activePage field on ui struct guards main-page keybindings when on Actions tab
+- 02-02: REST page numbers encoded as string cursors to bridge page-based API to cursor-based SelectUI
+- 02-02: ListWorkflowRuns/ByWorkflowID return *Response alongside results for NextPage pagination
+- 02-02: Workflow list cached in package-level var after first API fetch
 
 ### Pending Todos
 
@@ -75,9 +79,9 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-02-17 (plan execution)
-Stopped at: Completed 02-01-PLAN.md — Actions domain types and API layer done, ready for 02-02
+Stopped at: Completed 02-02-PLAN.md — Actions tab UI with filtering done, ready for 02-03
 Resume file: None
 
 ---
 *State initialized: 2026-02-16*
-*Last updated: 2026-02-17*
+*Last updated: 2026-02-17 (02-02 complete)*
