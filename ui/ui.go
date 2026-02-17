@@ -22,6 +22,7 @@ type ui struct {
 	primitives   []Primitive
 	primitiveLen int
 	updater      chan func()
+	activePage   string // tracks current page: "main" or "actions"
 }
 
 func New() *ui {
@@ -154,29 +155,57 @@ func (ui *ui) Start() error {
 		AddItem(CommentViewUI, row+5, col+4, rowSpan+4, colSpan+3, 0, 0, true).
 		AddItem(SearchUI, row+9, col, rowSpan+1, colSpan+7, 0, 0, true)
 
+	actionsGrid := NewActionsUI()
+
 	ui.pages = tview.NewPages().
-		AddAndSwitchToPage("main", grid, true)
+		AddAndSwitchToPage("main", grid, true).
+		AddPage("actions", actionsGrid, true, false)
+
+	ui.activePage = "main"
 
 	ui.app.SetRoot(ui.pages, true)
 
 	ui.app.SetInputCapture(func(event *tcell.EventKey) *tcell.EventKey {
 		switch event.Key() {
 		case tcell.KeyCtrlN:
-			UI.toNextUI()
+			if ui.activePage == "main" {
+				UI.toNextUI()
+			}
 		case tcell.KeyCtrlP:
-			UI.toPrevUI()
+			if ui.activePage == "main" {
+				UI.toPrevUI()
+			}
 		case tcell.KeyCtrlG:
-			ui.primitives[ui.current].blur()
-			ui.current = 5
-			p := ui.primitives[ui.current]
-			p.focus()
-			ui.app.SetFocus(IssueUI)
+			if ui.activePage == "main" {
+				ui.primitives[ui.current].blur()
+				ui.current = 5
+				p := ui.primitives[ui.current]
+				p.focus()
+				ui.app.SetFocus(IssueUI)
+			}
 		case tcell.KeyCtrlT:
-			ui.primitives[ui.current].blur()
-			ui.current = 0
-			p := ui.primitives[ui.current]
-			p.focus()
-			ui.app.SetFocus(IssueFilterUI)
+			if ui.activePage == "main" {
+				ui.primitives[ui.current].blur()
+				ui.current = 0
+				p := ui.primitives[ui.current]
+				p.focus()
+				ui.app.SetFocus(IssueFilterUI)
+			}
+		case tcell.KeyCtrlA:
+			if ui.activePage != "actions" {
+				ui.pages.SwitchToPage("actions")
+				ui.activePage = "actions"
+				WorkflowRunsUI.focus()
+				ui.app.SetFocus(WorkflowRunsUI)
+			}
+		case tcell.KeyCtrlI:
+			if ui.activePage == "actions" {
+				ui.pages.SwitchToPage("main")
+				ui.activePage = "main"
+				p := ui.primitives[ui.current]
+				p.focus()
+				ui.app.SetFocus(p)
+			}
 		}
 		return event
 	})

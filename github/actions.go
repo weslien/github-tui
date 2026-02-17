@@ -100,31 +100,31 @@ func formatTime(t time.Time) string {
 }
 
 // ListWorkflowRuns lists workflow runs for a repository.
-func ListWorkflowRuns(ctx context.Context, owner, repo string, opts *gogithub.ListWorkflowRunsOptions) (*gogithub.WorkflowRuns, error) {
+func ListWorkflowRuns(ctx context.Context, owner, repo string, opts *gogithub.ListWorkflowRunsOptions) (*gogithub.WorkflowRuns, *gogithub.Response, error) {
 	client := GetRESTClient()
 	if client == nil {
-		return nil, fmt.Errorf("REST client not initialized")
+		return nil, nil, fmt.Errorf("REST client not initialized")
 	}
 
-	runs, _, err := client.Actions.ListRepositoryWorkflowRuns(ctx, owner, repo, opts)
+	runs, resp, err := client.Actions.ListRepositoryWorkflowRuns(ctx, owner, repo, opts)
 	if err != nil {
-		return nil, fmt.Errorf("failed to list workflow runs: %w", err)
+		return nil, nil, fmt.Errorf("failed to list workflow runs: %w", err)
 	}
-	return runs, nil
+	return runs, resp, nil
 }
 
 // ListWorkflowRunsByWorkflowID lists workflow runs filtered by a specific workflow ID.
-func ListWorkflowRunsByWorkflowID(ctx context.Context, owner, repo string, workflowID int64, opts *gogithub.ListWorkflowRunsOptions) (*gogithub.WorkflowRuns, error) {
+func ListWorkflowRunsByWorkflowID(ctx context.Context, owner, repo string, workflowID int64, opts *gogithub.ListWorkflowRunsOptions) (*gogithub.WorkflowRuns, *gogithub.Response, error) {
 	client := GetRESTClient()
 	if client == nil {
-		return nil, fmt.Errorf("REST client not initialized")
+		return nil, nil, fmt.Errorf("REST client not initialized")
 	}
 
-	runs, _, err := client.Actions.ListWorkflowRunsByID(ctx, owner, repo, workflowID, opts)
+	runs, resp, err := client.Actions.ListWorkflowRunsByID(ctx, owner, repo, workflowID, opts)
 	if err != nil {
-		return nil, fmt.Errorf("failed to list workflow runs for workflow %d: %w", workflowID, err)
+		return nil, nil, fmt.Errorf("failed to list workflow runs for workflow %d: %w", workflowID, err)
 	}
-	return runs, nil
+	return runs, resp, nil
 }
 
 // ListWorkflows lists all workflows for a repository with full pagination.
