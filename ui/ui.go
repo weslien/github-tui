@@ -87,22 +87,24 @@ func (ui *ui) Modal(p tview.Primitive, width, height int) tview.Primitive {
 }
 
 func (ui *ui) Message(msg string, focusFunc func()) {
+	activePage := ui.activePage
 	modal := tview.NewModal().
 		SetText(msg).
 		AddButtons([]string{"OK"}).
 		SetDoneFunc(func(_ int, _ string) {
-			ui.pages.RemovePage("message").ShowPage("main")
+			ui.pages.RemovePage("message").ShowPage(activePage)
 			focusFunc()
 		})
-	ui.pages.AddAndSwitchToPage("message", ui.Modal(modal, 80, 29), true).ShowPage("main")
+	ui.pages.AddAndSwitchToPage("message", ui.Modal(modal, 80, 29), true).ShowPage(activePage)
 }
 
 func (ui *ui) FullScreenPreview(contents string, focus func()) {
 	CommonViewUI.SetText(contents).ScrollToBeginning()
 	CommonViewUI.setFocus = focus
+	CommonViewUI.returnPage = ui.activePage
 	grid := tview.NewGrid().SetRows(0, 1).
 		AddItem(CommonViewUI, 0, 0, 1, 1, 0, 0, true)
-	ui.pages.AddAndSwitchToPage("fullScreenPreview", grid, true).ShowPage("main")
+	ui.pages.AddAndSwitchToPage("fullScreenPreview", grid, true).ShowPage(ui.activePage)
 }
 
 func (ui *ui) Confirm(msg, doLabel string, doFunc func() error, focusFunc func()) {

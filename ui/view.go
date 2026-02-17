@@ -21,6 +21,7 @@ type ViewUI struct {
 	regionIDs    []string
 	uiKind       UIKind
 	setFocus     func()
+	returnPage   string // page to return to when closing full-screen preview
 }
 
 func NewViewUI(uiKind UIKind) {
@@ -85,7 +86,11 @@ func NewViewUI(uiKind UIKind) {
 			}
 		case 'o':
 			if ui.uiKind == UIKindCommonView {
-				UI.pages.SwitchToPage("main")
+				returnTo := ui.returnPage
+				if returnTo == "" {
+					returnTo = "main"
+				}
+				UI.pages.SwitchToPage(returnTo)
 				ui.setFocus()
 				return event
 			}
