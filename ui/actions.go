@@ -23,6 +23,10 @@ var (
 	actionsStatusFilter string
 	actionsWorkflowID   int64
 	actionsWorkflowName string
+	actionsWorkflows    []*gogithub.Workflow
+
+	// statusFilterCycle defines the order for cycling through status filters.
+	statusFilterCycle = []string{"", "success", "failure", "in_progress", "queued"}
 )
 
 // NewActionsUI creates the Actions tab with a workflow runs list and status line.
@@ -103,6 +107,10 @@ func NewActionsUI() tview.Primitive {
 			switch event.Rune() {
 			case 'r':
 				go WorkflowRunsUI.GetList()
+			case 's':
+				cycleStatusFilter()
+			case 'w':
+				showWorkflowSelector()
 			}
 
 			return event
@@ -120,6 +128,84 @@ func NewActionsUI() tview.Primitive {
 		AddItem(WorkflowRunsUI, 1, 0, 1, 1, 0, 0, true)
 
 	return grid
+}
+
+// cycleStatusFilter advances to the next status filter and refreshes the list.
+func cycleStatusFilter() {
+	// Find current position in cycle
+	current := 0
+	for i, s := range statusFilterCycle {
+		if s == actionsStatusFilter {
+			current = i
+			break
+		}
+	}
+	// Advance to next
+	next := (current + 1) % len(statusFilterCycle)
+	actionsStatusFilter = statusFilterCycle[next]
+
+	updateActionsStatusLine()
+	go WorkflowRunsUI.GetList()
+}
+
+// showWorkflowSelector opens a modal list of workflows for the user to select.
+func showWorkflowSelector() {
+	go func() {
+		// Fetch workflows if not cached
+		if actionsWorkflows == nil {
+			ctx := context.Background()
+			owner := config.GitHub.Owner
+			repo := config.GitHub.Repo
+
+			workflows, err := github.ListWorkflows(ctx, owner, repo)
+			if err != nil {
+				log.Println(err)
+				return
+			}
+			actionsWorkflows = workflows
+		}
+
+		UI.app.QueueUpdateDraw(func() {
+			list := tview.NewList().ShowSecondaryText(false)
+			list.SetBorder(true).SetTitle("Select Workflow").SetTitleAlign(tview.AlignLeft)
+
+			// Add "All workflows" option first
+			list.AddItem("All workflows", "", 0, nil)
+
+			for _, w := range actionsWorkflows {
+				list.AddItem(w.GetName(), "", 0, nil)
+			}
+
+			list.SetSelectedFunc(func(index int, mainText, secondaryText string, shortcut rune) {
+				if index == 0 {
+					// "All workflows" selected
+					actionsWorkflowID = 0
+					actionsWorkflowName = ""
+				} else {
+					w := actionsWorkflows[index-1]
+					actionsWorkflowID = w.GetID()
+					actionsWorkflowName = w.GetName()
+				}
+
+				UI.pages.RemovePage("workflow-selector")
+				UI.app.SetFocus(WorkflowRunsUI)
+				updateActionsStatusLine()
+				go WorkflowRunsUI.GetList()
+			})
+
+			list.SetInputCapture(func(event *tcell.EventKey) *tcell.EventKey {
+				if event.Key() == tcell.KeyEsc {
+					UI.pages.RemovePage("workflow-selector")
+					UI.app.SetFocus(WorkflowRunsUI)
+					return nil
+				}
+				return event
+			})
+
+			modal := UI.Modal(list, 60, 20)
+			UI.pages.AddAndSwitchToPage("workflow-selector", modal, true).ShowPage("actions")
+		})
+	}()
 }
 
 // updateActionsStatusLine refreshes the status line text with current filter state.
